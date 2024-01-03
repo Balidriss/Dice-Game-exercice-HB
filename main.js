@@ -40,25 +40,57 @@ function calculateScore(dices) {
     // si petite suite (4 dés à la suite) => 30pts
     // si grande suite (5 dés à la suite) => 40pts
 
-    // for (const dice of dices) {
-    //     let totalScore = 50;
+    //Count how many time each value occure until no more dices
+    const nmbOfOccurencePerValue = {};
+    dices.forEach(dice => {
+        nmbOfOccurencePerValue[dice.value] = (nmbOfOccurencePerValue[dice.value] || 0) + 1;
+    }
+    )
 
-    //     for (i=1; i<=6; i++)
-    //     {
-    //     if (orderedDices(dices)[i - 1] === orderedDices(dices)[i]) {
+    //count how many different value in total
+    totalDifferentValue = Object.keys(nmbOfOccurencePerValue).length;
 
-    //         totalScore += dice.value;
-    //     };
-    // }
-    // }
-    // if(checkSuite())
-    // {
-    //     totalScore = 30;
-    // }
-    // else
-    // {
-    //     totalScore = 40;
-    // };
+
+    const isFiveOfAKind = Object.values(nmbOfOccurencePerValue).includes(5);
+    const isFull = Object.values(nmbOfOccurencePerValue).includes(3) && Object.values(nmbOfOccurencePerValue).includes(2);
+    const isSmallStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[6];
+    const isLargeStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[1];
+
+    // Calculate score based on combinations
+    let score = 0;
+
+    if (isFiveOfAKind) {
+        score = 50;
+    } else if (isFull) {
+        score = 25;
+    } else if (isSmallStraight) {
+        score = 30;
+    } else if (isLargeStraight) {
+        score = 40;
+    } else {
+        // Check for 4 of a kind and 3 of a kind
+        Object.values(nmbOfOccurencePerValue).forEach(count => {
+            if (count === 4 || count === 3) {
+                const targetValue = Number(Object.keys(nmbOfOccurencePerValue).find(key => nmbOfOccurencePerValue[key] === count));
+
+                for (let i = 0; i < dices.length; i++) {
+                    if (dices[i].value === targetValue) {
+                        score += dices[i].value;
+                    }
+
+                }
+            }
+        })
+
+
+    }
+
+    console.log('Score:', score);
+    const divDice = document.querySelector('.dice');
+    const scoreContent = document.createElement('h2');
+    divDice.appendChild(scoreContent);
+    scoreContent.innerText = score;
+    console.log(nmbOfOccurencePerValue, totalDifferentValue);
 }
 
 window.addEventListener('load', () => {
