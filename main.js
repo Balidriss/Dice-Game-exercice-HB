@@ -62,6 +62,11 @@ function calculateScore(dices) {
     }
 
     console.log('Score:', score);
+    const divDice = document.querySelector('.dice');
+    const scoreContent = document.createElement('h2');
+    divDice.appendChild(scoreContent);
+    scoreContent.innerText = score;
+
 }
 
 window.addEventListener('load', () => {
