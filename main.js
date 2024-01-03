@@ -52,7 +52,7 @@ function calculateScore(dices) {
 
 
     const isFiveOfAKind = Object.values(nmbOfOccurencePerValue).includes(5);
-    const isFull = false;
+    const isFull = Object.values(nmbOfOccurencePerValue).includes(3) && Object.values(nmbOfOccurencePerValue).includes(2);
     const isSmallStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[6];
     const isLargeStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[1];
 
