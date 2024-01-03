@@ -69,6 +69,19 @@ function calculateScore(dices) {
         score = 40;
     } else {
         // Check for 4 of a kind and 3 of a kind
+        Object.values(nmbOfOccurencePerValue).forEach(count => {
+            if (count === 4 || count === 3) {
+                const targetValue = Number(Object.keys(nmbOfOccurencePerValue).find(key => nmbOfOccurencePerValue[key] === count));
+
+                for (let i = 0; i < dices.length; i++) {
+                    if (dices[i].value === targetValue) {
+                        score += dices[i].value;
+                    }
+
+                }
+            }
+        })
+
 
     }
 
