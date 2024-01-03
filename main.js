@@ -40,25 +40,28 @@ function calculateScore(dices) {
     // si petite suite (4 dés à la suite) => 30pts
     // si grande suite (5 dés à la suite) => 40pts
 
-    // for (const dice of dices) {
-    //     let totalScore = 50;
+    let isFiveOfAKind = false;
+    let isFull = false;
+    let isLargeStraight = false;
+    let isSmallStraight = false;
 
-    //     for (i=1; i<=6; i++)
-    //     {
-    //     if (orderedDices(dices)[i - 1] === orderedDices(dices)[i]) {
+    // Calculate score based on combinations
+    let score = 0;
 
-    //         totalScore += dice.value;
-    //     };
-    // }
-    // }
-    // if(checkSuite())
-    // {
-    //     totalScore = 30;
-    // }
-    // else
-    // {
-    //     totalScore = 40;
-    // };
+    if (isFiveOfAKind) {
+        score = 50;
+    } else if (isFull) {
+        score = 25;
+    } else if (isSmallStraight) {
+        score = 30;
+    } else if (isLargeStraight) {
+        score = 40;
+    } else {
+        // Check for 4 of a kind and 3 of a kind
+
+    }
+
+    console.log('Score:', score);
 }
 
 window.addEventListener('load', () => {
