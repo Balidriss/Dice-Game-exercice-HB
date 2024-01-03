@@ -42,17 +42,19 @@ function calculateScore(dices) {
 
     //Count how many time each value occure until no more dices
     const nmbOfOccurencePerValue = {};
-
     dices.forEach(dice => {
         nmbOfOccurencePerValue[dice.value] = (nmbOfOccurencePerValue[dice.value] || 0) + 1;
     }
     )
 
+    //count how many different value in total
+    totalDifferentValue = Object.keys(nmbOfOccurencePerValue).length;
 
-    let isFiveOfAKind = false;
-    let isFull = false;
-    let isLargeStraight = false;
-    let isSmallStraight = false;
+
+    const isFiveOfAKind = false;
+    const isFull = false;
+    const isSmallStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[6];
+    const isLargeStraight = totalDifferentValue === 5 && !nmbOfOccurencePerValue[1];
 
     // Calculate score based on combinations
     let score = 0;
@@ -75,7 +77,7 @@ function calculateScore(dices) {
     const scoreContent = document.createElement('h2');
     divDice.appendChild(scoreContent);
     scoreContent.innerText = score;
-
+    console.log(nmbOfOccurencePerValue, totalDifferentValue);
 }
 
 window.addEventListener('load', () => {
