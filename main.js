@@ -40,6 +40,15 @@ function calculateScore(dices) {
     // si petite suite (4 dés à la suite) => 30pts
     // si grande suite (5 dés à la suite) => 40pts
 
+    //Count how many time each value occure until no more dices
+    const nmbOfOccurencePerValue = {};
+
+    dices.forEach(dice => {
+        nmbOfOccurencePerValue[dice.value] = (nmbOfOccurencePerValue[dice.value] || 0) + 1;
+    }
+    )
+
+
     let isFiveOfAKind = false;
     let isFull = false;
     let isLargeStraight = false;
